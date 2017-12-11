@@ -27,9 +27,9 @@
 
     setTimeout(function () {
         if ($.urlParam("t")) {
-            speechSynthesis.onend = function () {
+            setTimeout(function () {
                 $("#form").show();
-            };
+            }, 3000);
             speechSynthesis.speak(new SpeechSynthesisUtterance(atob($.urlParam("t"))));
         } else {
             $("#form").show();
