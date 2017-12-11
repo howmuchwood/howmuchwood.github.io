@@ -14,7 +14,6 @@
     })(window.location.search.substr(1).split('&'));
 
     setTimeout(function () {
-        speechSynthesis.speak(new SpeechSynthesisUtterance(atob(qs["query"])))
+        speechSynthesis.speak(new SpeechSynthesisUtterance(atob(qs["t"])))
     }, 500);
-    console.log(btoa("last time i has a ride like that"));
 </script>
