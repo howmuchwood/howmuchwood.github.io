@@ -1,19 +1,38 @@
+<body>
+<div id="form">
+    <a id="link" href=""></a>
+    <textarea id="text" placeholder="type here!"></textarea>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
+        crossorigin="anonymous"></script>
 <script type="text/javascript">
-    var qs = (function(a) {
-        if (a === "") return {};
-        var b = {};
-        for (var i = 0; i < a.length; ++i)
-        {
-            var p=a[i].split('=', 2);
-            if (p.length === 1)
-                b[p[0]] = "";
-            else
-                b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    $.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+            .exec(window.location.href);
+
+        if(results) {
+            return results[1] || 0;
         }
-        return b;
-    })(window.location.search.substr(1).split('&'));
+    };
+
+    $("#form").hide();
+    $("#text").on("keyup", function () {
+        var link = "https://howmuchwood.github.io?t=" + btoa($("#text").val());
+        $("#link")
+            .attr("href", link)
+            .text(link);
+    });
 
     setTimeout(function () {
-        speechSynthesis.speak(new SpeechSynthesisUtterance(atob(qs["t"])))
-    }, 500);
+        if($.urlParam("t")) {
+            setTimeout(function() {
+                $("#form").show();
+            }, 3000);
+            speechSynthesis.speak(new SpeechSynthesisUtterance(atob($.urlParam("t"))));
+        } else {
+            $("#form").show();
+        }
+    }, 250);
 </script>
