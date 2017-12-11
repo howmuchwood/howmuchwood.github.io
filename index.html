@@ -1,6 +1,7 @@
 <body>
 <div id="form">
     <a id="link" href=""></a>
+    <br/>
     <textarea id="text" placeholder="type here!"></textarea>
 </div>
 </body>
@@ -12,7 +13,7 @@
         var results = new RegExp('[\?&]' + name + '=([^&#]*)')
             .exec(window.location.href);
 
-        if(results) {
+        if (results) {
             return results[1] || 0;
         }
     };
@@ -26,8 +27,8 @@
     });
 
     setTimeout(function () {
-        if($.urlParam("t")) {
-            setTimeout(function() {
+        if ($.urlParam("t")) {
+            setTimeout(function () {
                 $("#form").show();
             }, 3000);
             speechSynthesis.speak(new SpeechSynthesisUtterance(atob($.urlParam("t"))));
